@@ -50,3 +50,15 @@ D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.e
 D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.application
 D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
 D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.application
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojAssemblyReference.cache
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csproj.CoreCompileInputs.cache
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.TrustInfo.xml
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.application
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\Dev\cpp\CardRpgGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb

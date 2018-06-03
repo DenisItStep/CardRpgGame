@@ -16,5 +16,5 @@ D:\Dev\cpp\CardRpgGame\CardGameClient\CardGameClient\App.xaml
 14637617180
 CardInfo.xaml;CardPackWindow.xaml;Controls\CharacterCard.xaml;Controls\CardPlace.xaml;CharacterCreateScreen.xaml;Controls\Digit.xaml;Controls\FindButton.xaml;Controls\inGameTopInfo.xaml;Controls\PopupInfo.xaml;Controls\sellmenu.xaml;DialogWin.xaml;GameResultWindow.xaml;InGameMenuEscWindow.xaml;LobbyScreen.xaml;LoginScreen.xaml;MainWindow.xaml;Controls\StyledBtn.xaml;Controls\StyledTextBox.xaml;NewCardWindow.xaml;
 
-True
+False
 
