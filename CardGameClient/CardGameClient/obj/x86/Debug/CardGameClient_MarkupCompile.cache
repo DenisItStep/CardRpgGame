@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Dev\cpp\CardGame\CardGameClient\CardGameClient\obj\x86\Debug\
+D:\Dev\cpp\CardRpgGame\CardGameClient\CardGameClient\obj\x86\Debug\
 CardGameClient
 none
 false
 DEBUG;TRACE
-D:\Dev\cpp\CardGame\CardGameClient\CardGameClient\App.xaml
+D:\Dev\cpp\CardRpgGame\CardGameClient\CardGameClient\App.xaml
 19712976444
 
 32523940934
 14637617180
 CardInfo.xaml;CardPackWindow.xaml;Controls\CharacterCard.xaml;Controls\CardPlace.xaml;CharacterCreateScreen.xaml;Controls\Digit.xaml;Controls\FindButton.xaml;Controls\inGameTopInfo.xaml;Controls\PopupInfo.xaml;Controls\sellmenu.xaml;DialogWin.xaml;GameResultWindow.xaml;InGameMenuEscWindow.xaml;LobbyScreen.xaml;LoginScreen.xaml;MainWindow.xaml;Controls\StyledBtn.xaml;Controls\StyledTextBox.xaml;NewCardWindow.xaml;
 
-False
+True
 
