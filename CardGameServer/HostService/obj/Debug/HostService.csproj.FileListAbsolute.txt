@@ -1,0 +1,11 @@
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\HostService.exe.config
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\HostService.exe
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\HostService.pdb
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\CardGameServer.exe
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\bin\Debug\CardGameServer.exe.config
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\obj\Debug\HostService.csprojAssemblyReference.cache
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\obj\Debug\HostService.csproj.CoreCompileInputs.cache
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\obj\Debug\HostService.csproj.CopyComplete
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\obj\Debug\HostService.exe
+D:\Dev\cpp\CardGame-master\CardGameServer\HostService\obj\Debug\HostService.pdb

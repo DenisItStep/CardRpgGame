@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="CardGameClient.CardPlace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dc="clr-namespace:CardGameClient"
+             mc:Ignorable="d"
+             d:DesignHeight="127" d:DesignWidth="105" MouseDown="UserControl_MouseDown">
+    <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave" MouseRightButtonUp="GridMain_MouseRightButtonUp">
+        
+        <Border Visibility="Hidden" Name="borderGrid" Margin="-7" BorderThickness="2" BorderBrush="#FFC1C1C1" CornerRadius="7">
+           
+        </Border>
+        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False" Panel.ZIndex="0" >
+            
+            <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"/>
+
+            <Image Margin="-0.5" Name="borderImg" Source="pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png" Stretch="Fill"/>
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,60">
+                <Image Name="AttackBar" Source="pack://application:,,,/CardGameClient;component/Images/attackIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="AttakDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+                
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,35">
+                <Image Name="DefBar" Source="pack://application:,,,/CardGameClient;component/Images/defIkon.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="DefDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10">
+                <Image Name="HpBar" Source="pack://application:,,,/CardGameClient;component/Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="19" Width="20" VerticalAlignment="Center" Visibility="Visible" />
+                <dc:Digit x:Name="HpDig" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Visibility="Visible" />
+            </Grid>
+
+            <Label Content="55" Margin="0,6,6,0" Name="dmgLabel" VerticalAlignment="Top" Foreground="Red" FontSize="32" FontWeight="Normal" HorizontalAlignment="Right" FlowDirection="LeftToRight" FontFamily="Verdana" Opacity="0">
+                <Label.Background>
+                    <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
+                </Label.Background>
+            </Label>
+
+            <Label Content="Крит!" Margin="0,35,-15,0" Name="dmgLabeladtnl" VerticalAlignment="Top" Foreground="Red" FontSize="16" FontWeight="Normal" HorizontalAlignment="Right" FlowDirection="LeftToRight" FontFamily="Verdana" Opacity="0">
+                <Label.Background>
+                    <ImageBrush ImageSource="/CardGameClient;component/Images/dmg_label_back.png" Stretch="Fill" />
+                </Label.Background>
+            </Label>
+
+            <Image Name="dmgImgEffect" Source="/CardGameClient;component/Images/Effects/dmg.png" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0"/>
+
+            <Image Name="InjuryEffect" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="7, 7, 0, 0" Height="25" Width="25" Source="/CardGameClient;component/Images/Effects/injury.png">
+                <Image.ToolTip>
+                    <ToolTip Name="InjuredToolTip" Padding="2" HorizontalContentAlignment="Center" Background="#DD000000" Foreground="White" BorderThickness="0" BorderBrush="Black"/>
+                </Image.ToolTip>
+            </Image>
+        </Grid>
+        
+        <dc:sellmenu x:Name="sellBtn" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="15, 0, 0, 0" Visibility="Hidden" IsEnabled="False" MouseUp="sellBtn_MouseUp_1"/>
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
+        </Grid.Background>
+
+    </Grid>
+</UserControl>

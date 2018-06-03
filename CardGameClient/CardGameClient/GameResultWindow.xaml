@@ -1,0 +1,38 @@
+﻿<Window x:Class="CardGameClient.GameResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dc="clr-namespace:CardGameClient"
+        Title="Avalon: Battles for Glory" Name="GameResultWnd" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowState="Maximized" AllowsTransparency="True" Background="#C6000000" ContentRendered="Window_ContentRendered" Closed="Window_Closed">
+    <Grid Height="311" Width="264" MaxHeight="311" MaxWidth="264">
+        <Grid.Background>
+            <ImageBrush ImageSource="/CardGameClient;component/Images/newCardWnd.png" RenderOptions.BitmapScalingMode="Fant" />
+        </Grid.Background>
+        <Image Height="75" Name="PlaceHolder" Width="75" HorizontalAlignment="Center" VerticalAlignment="Top" Source="/CardGameClient;component/Images/winner.png" Margin="0,0,190,0" />
+        <Label Name="GameResultLabel" UseLayoutRounding="True" SnapsToDevicePixels="True" Content="Победа!" HorizontalAlignment="Center" Margin="0,36,0,0" FontSize="24" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <Label Name="LevelLabel" UseLayoutRounding="True" SnapsToDevicePixels="True" Content="Новый уровень!" HorizontalAlignment="Center" Margin="0,80,0,0" FontSize="18" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <Label UseLayoutRounding="True" Content="Вы получили:" SnapsToDevicePixels="True" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,130,0,0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <Label Name="ExpLabel" UseLayoutRounding="True" Content="Опыт: 264" SnapsToDevicePixels="True" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,160,0,0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <Label Name="ScoreLabel" Content="Очки: 132" UseLayoutRounding="True" SnapsToDevicePixels="True" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,185,0,0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Performance" Direction="330" ShadowDepth="3" />
+            </Label.Effect>
+        </Label>
+        <dc:StyledBtn HorizontalAlignment="Center" Text="Принять" VerticalAlignment="Bottom" Height="34" Width="135" Margin="0,0,0,35" MouseUp="Image_MouseUp"/>
+    </Grid>
+</Window>

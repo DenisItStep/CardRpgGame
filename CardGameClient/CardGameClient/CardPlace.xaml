@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="CardGameClient.CardPlace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             d:DesignHeight="127" d:DesignWidth="105">
+    <Grid Name="GridMain" Margin="0" Opacity="1" MouseEnter="Grid_MouseEnter" MouseLeave="GridMain_MouseLeave">
+        <Grid Name="CardCrid" Visibility="Hidden" ClipToBounds="False">
+            <Image RenderOptions.BitmapScalingMode="Fant" Name="Portrait" Stretch="Fill" Visibility="Visible" Panel.ZIndex="0"></Image>
+            <Image Margin="-0.5" Name="borderImg" Source="Images/cardmin_my_border.png" Stretch="Fill" ></Image>
+            <Image Name="HpBar" Source="Images/shar.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="33" Width="35" Margin="4,0,67,8" VerticalAlignment="Bottom" Visibility="Visible" />
+            <Image Name="HpDig1"  Source="Images/Numeric/5.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="8.083,0,0,13.333" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
+            <Image Name="HpDig2"  Source="Images/Numeric/5.png" RenderOptions.BitmapScalingMode="Fant" Stretch="Fill" HorizontalAlignment="Left" Height="22" Width="18" Margin="19.083,0,0,13.333" Panel.ZIndex="1" VerticalAlignment="Bottom" Visibility="Visible" />
+        </Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/CardGameClient;component/Images/cardmin_my_bg.png" />
+        </Grid.Background>
+    </Grid>
+</UserControl>

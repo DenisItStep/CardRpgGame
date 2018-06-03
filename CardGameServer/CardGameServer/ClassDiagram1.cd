@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CardGameServer.Card">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAIAAAAAIAAAAAQkAAAQAAFAAAAQADCAAAAAgA=</HashCode>
+      <FileName>Card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.CharInfo">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAEAAAAAAAAAAAACAIEAAAwA=</HashCode>
+      <FileName>CharInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Formulas">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAACAAEAAACAAAAAAAABQA=</HashCode>
+      <FileName>Formulas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Game">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgggEAAAAAAAAAIUAgAAgAAAIAAAgAABAQAgAAAAICA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Gamer">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAEAAAAQAAAAAAAAEAA=</HashCode>
+      <FileName>Gamer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.LastHitInfo">
+    <Position X="2.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAgAAAAAAAACAgAAAAA=</HashCode>
+      <FileName>LastHitInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Level">
+    <Position X="6.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Level.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Reward">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Reward.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CardGameServer.Servicegame">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAARIQAwAAAAgAAAAAIAAAAACAAIFBAQAEAACBg=</HashCode>
+      <FileName>Servicegame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

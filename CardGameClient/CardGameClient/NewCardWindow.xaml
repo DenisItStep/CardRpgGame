@@ -1,0 +1,23 @@
+﻿<Window x:Class="CardGameClient.NewCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dc="clr-namespace:CardGameClient"
+        Title="Avalon: Battles for Glory" Name="NewCardWnd" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowState="Maximized" AllowsTransparency="True" Background="#C6000000" ContentRendered="Window_ContentRendered">
+    <Grid Height="311" Width="264" MaxHeight="311" MaxWidth="264">
+        <Grid.Background>
+            <ImageBrush ImageSource="/CardGameClient;component/Images/newCardWnd.png" RenderOptions.BitmapScalingMode="Fant" />
+        </Grid.Background>
+        <dc:CardPlace x:Name="NewCardPlace" IsMineCard="True" inGame="False" Width="131" Height="169" Margin="0, 65, 0, 77" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" />
+        <Label Content="Новая карта!" UseLayoutRounding="True" SnapsToDevicePixels="True" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,17,0,0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Лучник" UseLayoutRounding="True" SnapsToDevicePixels="True" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,39,0,0" FontSize="16" FontFamily="Fonts/MyriadPro-Regular.otf#Myriad Pro" Name="CardNameLabel" VerticalAlignment="Top" Foreground="White">
+            <Label.Effect>
+                <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="330" ShadowDepth="3"/>
+            </Label.Effect>
+        </Label>
+        <dc:StyledBtn HorizontalAlignment="Center" Text="Принять" VerticalAlignment="Bottom" Height="34" Width="135" Margin="0,0,0,32" MouseUp="Image_MouseUp"/>
+    </Grid>
+</Window>

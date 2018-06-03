@@ -1,0 +1,52 @@
+D:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+D:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\CardsKurs\new\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\CardsKurs\new\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\CardsKurs\new\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+D:\CardsKurs\new\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\CardsKurs\new\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+F:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+F:\Шаг\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+C:\Users\Студент\Documents\Visual Studio 2012\Projects\Шафир сп2111\Cursach\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
+D:\Шаг\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
+D:\CardsKurs\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojResolveAssemblyReference.cache
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojAssemblyReference.cache
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csproj.CoreCompileInputs.cache
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\bin\Debug\CardGameServer.application
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.application
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\Dev\cpp\CardGame-master\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.TrustInfo.xml
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.config
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.application
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.exe
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\bin\Debug\CardGameServer.pdb
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csprojAssemblyReference.cache
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.csproj.CoreCompileInputs.cache
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.TrustInfo.xml
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe.manifest
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.application
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.exe
+D:\Dev\cpp\CardGame\CardGameServer\CardGameServer\obj\x86\Debug\CardGameServer.pdb
