@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace CardGameServer
@@ -16,7 +13,7 @@ namespace CardGameServer
     public interface Servicegame
     {
         /// <summary>
-        /// Вход в игру
+        ///     Вход в игру
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <param name="pass">Пароль</param>
@@ -25,7 +22,7 @@ namespace CardGameServer
         int Login(string user, string pass);
 
         /// <summary>
-        /// Если у игрока нету пресонажей
+        ///     Если у игрока нету пресонажей
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <returns></returns>
@@ -33,7 +30,7 @@ namespace CardGameServer
         bool isAccountContainsAnyCharacter(string user);
 
         /// <summary>
-        /// Создание игрока
+        ///     Создание игрока
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <param name="name">Ник</param>
@@ -43,14 +40,14 @@ namespace CardGameServer
         bool createCharacter(string user, string name, int heroCardId);
 
         /// <summary>
-        /// Список стандартных карт игроков
+        ///     Список стандартных карт игроков
         /// </summary>
         /// <returns></returns>
         [OperationContract]
         List<Card> getHeroesTemplateAvailableList();
 
         /// <summary>
-        /// Вход в игру
+        ///     Вход в игру
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <returns></returns>
@@ -58,21 +55,21 @@ namespace CardGameServer
         CharInfo EnterWorld(string user);
 
         /// <summary>
-        /// Игрк онлайн
+        ///     Игрк онлайн
         /// </summary>
         /// <param name="user">Игрок</param>
         [OperationContract]
         void iAmOnline(string user);
 
         /// <summary>
-        /// Получение ранга
+        ///     Получение ранга
         /// </summary>
         /// <returns></returns>
         [OperationContract]
         List<CharInfo> getRanking();
 
         /// <summary>
-        /// Поиск противника
+        ///     Поиск противника
         /// </summary>
         /// <param name="nickname">Персонаж</param>
         /// <returns></returns>
@@ -80,7 +77,7 @@ namespace CardGameServer
         Game findGame(string nickname);
 
         /// <summary>
-        /// Создание боя
+        ///     Создание боя
         /// </summary>
         /// <param name="nickname">Персонаж</param>
         /// <returns></returns>
@@ -88,7 +85,7 @@ namespace CardGameServer
         Game getGame(string nickname);
 
         /// <summary>
-        /// Конец поиска
+        ///     Конец поиска
         /// </summary>
         /// <param name="nickname">Персонаж</param>
         /// <returns></returns>
@@ -96,7 +93,7 @@ namespace CardGameServer
         bool cancelSearch(string nickname);
 
         /// <summary>
-        /// Был атакован
+        ///     Был атакован
         /// </summary>
         /// <param name="nickname">Ник</param>
         /// <param name="myslot">Мои слоты</param>
@@ -106,21 +103,21 @@ namespace CardGameServer
         LastHitInfo DoAttack(string nickname, int myslot, int enslot);
 
         /// <summary>
-        /// Покинуть бой
+        ///     Покинуть бой
         /// </summary>
         /// <param name="nickname">Персонаж</param>
         [OperationContract]
         void leaveGame(string nickname);
 
         /// <summary>
-        /// Выход из игры
+        ///     Выход из игры
         /// </summary>
         /// <param name="user">Игрок</param>
         [OperationContract]
         void Logout(string user);
 
         /// <summary>
-        /// Показать все карты
+        ///     Показать все карты
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <param name="page">Страницы</param>
@@ -129,7 +126,7 @@ namespace CardGameServer
         List<Card> GetAllCard(string user, int page = 1);
 
         /// <summary>
-        /// Изменение слотоы карт
+        ///     Изменение слотоы карт
         /// </summary>
         /// <param name="user">Карта</param>
         /// <param name="oslot">Старый слот</param>
@@ -139,7 +136,7 @@ namespace CardGameServer
         bool ChangeCardslot(string user, int oslot, int nSlot);
 
         /// <summary>
-        /// Получение слотов под новые карты
+        ///     Получение слотов под новые карты
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <returns></returns>
@@ -147,7 +144,7 @@ namespace CardGameServer
         int GetFreeSlotNumberAllCards(string user);
 
         /// <summary>
-        /// Покупка карт
+        ///     Покупка карт
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <param name="number">Колличество</param>
@@ -156,13 +153,12 @@ namespace CardGameServer
         List<Card> BuyCard(string user, int number);
 
         /// <summary>
-        /// Продажа карт
+        ///     Продажа карт
         /// </summary>
         /// <param name="user">Игрок</param>
         /// <param name="slot">Слот</param>
         /// <returns></returns>
         [OperationContract]
         bool SellCard(string user, int slot);
-
     }
 }

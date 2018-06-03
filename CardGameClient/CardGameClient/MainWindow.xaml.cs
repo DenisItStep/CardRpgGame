@@ -1,37 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using CardGameServer;
-using System.Windows.Threading;
+using System.ComponentModel;
 using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using CardGameServer;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        CardPlace mySelectedCardPlace;
-        CardPlace enemySelectedCardPlace;
+        private readonly Dictionary<int, CardPlace> enemyCardPlases = new Dictionary<int, CardPlace>();
 
-        int lasthitCard = -1;
+        private readonly Dictionary<int, CardPlace> myCardPlases = new Dictionary<int, CardPlace>();
+        private CardPlace enemySelectedCardPlace;
 
         public Game game;
 
-        Dictionary<int, CardPlace> myCardPlases = new Dictionary<int, CardPlace>();
-        Dictionary<int, CardPlace> enemyCardPlases = new Dictionary<int, CardPlace>();
+        private int lasthitCard = -1;
+        private CardPlace mySelectedCardPlace;
 
         public MainWindow()
         {
@@ -40,43 +30,35 @@ namespace CardGameClient
 
         private void myCardPlace_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            CardPlace cp = sender as CardPlace;
+            var cp = sender as CardPlace;
 
-            if (mySelectedCardPlace != null && cp != mySelectedCardPlace) 
+            if (mySelectedCardPlace != null && cp != mySelectedCardPlace)
                 mySelectedCardPlace.selected = false;
 
             mySelectedCardPlace = cp;
 
             foreach (var item in enemyCardPlases.Values)
-            {
                 if (item.ContainsCard && item.ThisCard.Enabled)
-                item.IsEnabled = true;
-            }
+                    item.IsEnabled = true;
         }
 
         private void enemyCardPlace_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                CardPlace cp = sender as CardPlace;
+                var cp = sender as CardPlace;
 
                 if (enemySelectedCardPlace != null && enemySelectedCardPlace != cp)
                     enemySelectedCardPlace.selected = false;
 
                 enemySelectedCardPlace = cp;
 
-                foreach (var item in enemyCardPlases.Values)
-                {
-                    item.IsEnabled = false;
-                }
+                foreach (var item in enemyCardPlases.Values) item.IsEnabled = false;
 
-                foreach (var item in myCardPlases.Values)
-                {
-                    item.IsEnabled = false;
-                }
+                foreach (var item in myCardPlases.Values) item.IsEnabled = false;
 
                 //attack
-                bool isError = false;
+                var isError = false;
                 LastHitInfo lhi = null;
                 App.ProxyMutex.WaitOne();
                 try
@@ -89,6 +71,7 @@ namespace CardGameClient
                     App.OnException();
                     isError = true;
                 }
+
                 App.ProxyMutex.ReleaseMutex();
 
                 if (isError)
@@ -107,14 +90,12 @@ namespace CardGameClient
                 enemySelectedCardPlace.selected = mySelectedCardPlace.selected = false;
 
                 foreach (var item in myCardPlases.Values)
-                {
                     if (item.ContainsCard && item.ThisCard.Enabled)
                         item.IsEnabled = true;
-                }
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
@@ -133,7 +114,7 @@ namespace CardGameClient
                 {
                     Thread.Sleep(500);
 
-                    bool isError = false;
+                    var isError = false;
 
                     App.ProxyMutex.WaitOne();
                     try
@@ -145,6 +126,7 @@ namespace CardGameClient
                         App.OnException();
                         isError = true;
                     }
+
                     App.ProxyMutex.ReleaseMutex();
 
                     if (isError)
@@ -159,13 +141,13 @@ namespace CardGameClient
                         if (game.gameState == 2 || game.gameState == 3)
                         {
                             foreach (var item in game.firstGamerCards)
-                            {
-                                this.Dispatcher.Invoke(new Action(delegate
+                                Dispatcher.Invoke(new Action(delegate
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked 
-                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
+                                                                                     && !myCardPlases[item.slot]
+                                                                                         .ThisCard.IsAttacked)
                                         {
                                             enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
                                             lasthitCard = game.lastHitInfo.slot;
@@ -176,18 +158,19 @@ namespace CardGameClient
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
+                                    {
                                         enemyCardPlases[item.slot].ThisCard = item;
+                                    }
                                 }));
-                            }
 
                             foreach (var item in game.twoGamerCards)
-                            {
-                                this.Dispatcher.Invoke(new Action(delegate
+                                Dispatcher.Invoke(new Action(delegate
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
-                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
+                                                                                     && !myCardPlases[item.slot]
+                                                                                         .ThisCard.IsAttacked)
                                         {
                                             enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
                                             lasthitCard = game.lastHitInfo.slot;
@@ -198,11 +181,12 @@ namespace CardGameClient
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
+                                    {
                                         enemyCardPlases[item.slot].ThisCard = item;
+                                    }
                                 }));
-                            }
 
-                            this.Dispatcher.Invoke(new Action(delegate
+                            Dispatcher.Invoke(new Action(delegate
                             {
                                 if (game.currUsr == App.NickName)
                                 {
@@ -211,40 +195,35 @@ namespace CardGameClient
                                     boardGrid.IsEnabled = true;
 
                                     foreach (var item in myCardPlases.Values)
-                                    {
                                         if (item.ContainsCard && item.ThisCard.Enabled)
                                             item.Enabled = true;
-                                    }
                                 }
                                 else
                                 {
                                     menuTop.btnText = "Ход\nсоперника";
 
-                                   /* if (!known)
-                                    {
-                                        lasthitCard = -1;
-                                        known = true;
-                                    }*/
+                                    /* if (!known)
+                                     {
+                                         lasthitCard = -1;
+                                         known = true;
+                                     }*/
 
                                     boardGrid.IsEnabled = false;
 
-                                    foreach (var item in myCardPlases.Values)
-                                    {
-                                        item.Enabled = false;
-                                    }
+                                    foreach (var item in myCardPlases.Values) item.Enabled = false;
                                 }
                             }));
                         }
                         else if (game.gameState == 4)
                         {
                             foreach (var item in game.firstGamerCards)
-                            {
-                                this.Dispatcher.Invoke(new Action(delegate
+                                Dispatcher.Invoke(new Action(delegate
                                 {
                                     if (game.fGamer.nick == App.NickName)
                                     {
                                         if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
-                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
+                                                                                     && !myCardPlases[item.slot]
+                                                                                         .ThisCard.IsAttacked)
                                         {
                                             enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
                                             lasthitCard = game.lastHitInfo.slot;
@@ -255,18 +234,19 @@ namespace CardGameClient
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
+                                    {
                                         enemyCardPlases[item.slot].ThisCard = item;
+                                    }
                                 }));
-                            }
 
                             foreach (var item in game.twoGamerCards)
-                            {
-                                this.Dispatcher.Invoke(new Action(delegate
+                                Dispatcher.Invoke(new Action(delegate
                                 {
                                     if (game.fGamer.nick != App.NickName)
                                     {
-                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked 
-                                            && !myCardPlases[item.slot].ThisCard.IsAttacked)
+                                        if (myCardPlases[item.slot].ThisCard != null && item.IsAttacked
+                                                                                     && !myCardPlases[item.slot]
+                                                                                         .ThisCard.IsAttacked)
                                         {
                                             enemyCardPlases[game.lastHitInfo.slot].AnimateTurn(true);
                                             lasthitCard = game.lastHitInfo.slot;
@@ -277,94 +257,85 @@ namespace CardGameClient
                                         myCardPlases[item.slot].Enabled = item.Enabled;
                                     }
                                     else
+                                    {
                                         enemyCardPlases[item.slot].ThisCard = item;
+                                    }
                                 }));
-                            }
 
-                            this.Dispatcher.Invoke(new Action(delegate
+                            Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
 
                                 GameResultWindow grw = null;
 
                                 if (game.currUsr == App.NickName)
-                                {
-                                    grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
+                                    grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel,
+                                        game.WinGamerReward.Exp,
                                         game.WinGamerReward.Score, game.WinGamerReward.NewCard);
-                                }
                                 else
-                                {
-                                    grw = new GameResultWindow("Поражение!", game.LooseGamerReward.NewLevel, game.LooseGamerReward.Exp,
+                                    grw = new GameResultWindow("Поражение!", game.LooseGamerReward.NewLevel,
+                                        game.LooseGamerReward.Exp,
                                         game.LooseGamerReward.Score, game.LooseGamerReward.NewCard);
-                                }
 
                                 App.WindowList.Add(grw.Name, grw);
 
                                 grw.ShowDialog();
 
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
-                               
+
                                 //Hide();
                                 //Close();
                             }));
 
                             Thread.Sleep(200);
 
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                App.WindowList["LobbyWnd"].Show();
-                            }));
+                            Dispatcher.Invoke(new Action(delegate { App.WindowList["LobbyWnd"].Show(); }));
 
                             Thread.Sleep(1000);
 
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                Hide();
-                            }));
+                            Dispatcher.Invoke(new Action(delegate { Hide(); }));
 
                             return;
                         }
                         else if (game.gameState == 5)
                         {
-                            this.Dispatcher.Invoke(new Action(delegate
+                            Dispatcher.Invoke(new Action(delegate
                             {
                                 App.InGame = false;
-                                GameResultWindow grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel, game.WinGamerReward.Exp,
-                                        game.WinGamerReward.Score, game.WinGamerReward.NewCard);
+                                var grw = new GameResultWindow("Победа!", game.WinGamerReward.NewLevel,
+                                    game.WinGamerReward.Exp,
+                                    game.WinGamerReward.Score, game.WinGamerReward.NewCard);
 
                                 App.WindowList.Add(grw.Name, grw);
 
                                 grw.ShowDialog();
 
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnGameEnd();
-                                
+
                                 //Hide();
                                 //Close();
                             }));
 
                             Thread.Sleep(200);
 
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                App.WindowList["LobbyWnd"].Show();
-                            }));
+                            Dispatcher.Invoke(new Action(delegate { App.WindowList["LobbyWnd"].Show(); }));
 
                             Thread.Sleep(1000);
 
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                Hide();
-                            }));
+                            Dispatcher.Invoke(new Action(delegate { Hide(); }));
 
                             return;
                         }
                     }
-                    else return;
+                    else
+                    {
+                        return;
+                    }
                 }
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
@@ -380,19 +351,18 @@ namespace CardGameClient
             {
                 foreach (UIElement item in boardGrid.Children)
                 {
-                    CardPlace cp = item as CardPlace;
+                    var cp = item as CardPlace;
 
                     if (cp != null)
                     {
                         if (cp.Name.Contains("MyPlace"))
-                            myCardPlases.Add(Int32.Parse(cp.Tag.ToString()), cp);
+                            myCardPlases.Add(int.Parse(cp.Tag.ToString()), cp);
                         else if (cp.Name.Contains("EnemyPlace"))
-                            enemyCardPlases.Add(Int32.Parse(cp.Tag.ToString()), cp);
+                            enemyCardPlases.Add(int.Parse(cp.Tag.ToString()), cp);
                     }
                 }
 
                 OnWindowShow();
-
 
 
                 /* this.Dispatcher.Invoke(new Action(() =>
@@ -401,7 +371,7 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
@@ -416,7 +386,7 @@ namespace CardGameClient
         {
             new Action(delegate
             {
-                bool isError = false;
+                var isError = false;
 
                 App.ProxyMutex.WaitOne();
                 try
@@ -428,13 +398,13 @@ namespace CardGameClient
                     App.OnException();
                     isError = true;
                 }
+
                 App.ProxyMutex.ReleaseMutex();
 
                 if (isError)
                 {
                     game = null;
                     App.OnConnectionError();
-                    return;
                 }
             }).Invoke();
 
@@ -445,7 +415,7 @@ namespace CardGameClient
                     Thread.Sleep(1000);
                     new Action(delegate
                     {
-                        bool isError = false;
+                        var isError = false;
 
                         App.ProxyMutex.WaitOne();
                         try
@@ -457,26 +427,20 @@ namespace CardGameClient
                             App.OnException();
                             isError = true;
                         }
+
                         App.ProxyMutex.ReleaseMutex();
 
                         if (isError)
                         {
                             game = null;
                             App.OnConnectionError();
-                            return;
                         }
                     }).Invoke();
                 }
 
-                foreach (var item in myCardPlases.Values)
-                {
-                    item.inGame = true;
-                }
+                foreach (var item in myCardPlases.Values) item.inGame = true;
 
-                foreach (var item in enemyCardPlases.Values)
-                {
-                    item.inGame = false;
-                }
+                foreach (var item in enemyCardPlases.Values) item.inGame = false;
 
 
                 if (App.NickName == game.fGamer.nick)
@@ -494,19 +458,22 @@ namespace CardGameClient
                     menuTop.twoUserLevel = game.fGamer.level.ToString();
                 }
 
-                Thread gameThread = new Thread(DoGame) { IsBackground = true };
+                var gameThread = new Thread(DoGame) {IsBackground = true};
                 gameThread.Start();
             }
-            else throw new Exception("game is null");
+            else
+            {
+                throw new Exception("game is null");
+            }
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {     
-            bool isError = false;
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            var isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
                 App.ProxyMutex.WaitOne();
@@ -519,6 +486,7 @@ namespace CardGameClient
                     App.OnException();
                     isError = true;
                 }
+
                 App.ProxyMutex.ReleaseMutex();
             }
 
@@ -531,7 +499,10 @@ namespace CardGameClient
                     {
                         ServiceProxy.Proxy.Logout(App.UserName);
                     }
-                    catch {}
+                    catch
+                    {
+                    }
+
                     App.ProxyMutex.ReleaseMutex();
                 }
 
@@ -541,7 +512,6 @@ namespace CardGameClient
             else if (isError)
             {
                 App.OnConnectionError();
-                return;
             }
         }
 
@@ -552,16 +522,14 @@ namespace CardGameClient
 
         private void CardPlace_MouseEnter(object sender, MouseEventArgs e)
         {
-           /* CardPlace ccp = sender as CardPlace;
-
-            if (!ccp.ContainsCard) return;
-
-            if (ccp.IsMineCard)
-            {
-                ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
-            }*/
-
-
+            /* CardPlace ccp = sender as CardPlace;
+ 
+             if (!ccp.ContainsCard) return;
+ 
+             if (ccp.IsMineCard)
+             {
+                 ccp.ToolTip = "Характеристики:\nАтака: " + ccp.ThisCard.dmg + "\nЗащита: " + ccp.ThisCard.def;
+             }*/
         }
 
 
@@ -581,7 +549,7 @@ namespace CardGameClient
         {
             if (e.Key == Key.Escape)
             {
-                InGameMenuEscWindow igmew = new InGameMenuEscWindow(this);
+                var igmew = new InGameMenuEscWindow(this);
                 App.WindowList.Add(igmew.Name, igmew);
                 igmew.Show();
             }
@@ -627,6 +595,5 @@ namespace CardGameClient
                 }
             }
         }
-
     }
 }

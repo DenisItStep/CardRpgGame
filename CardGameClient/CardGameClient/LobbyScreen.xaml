@@ -752,7 +752,7 @@
                               VerticalAlignment="Top"
                               Width="130"
                               HorizontalAlignment="Center"
-                              MouseUp="nabor1Btn_MouseUp"></dc:StyledBtn>
+                              MouseUp="nabor1Btn_MouseUp" />
 
                 <TextBlock Margin="0, 120, 0, 0"
                            Text="Набор 2. Содержит 3 случайные карты, одна из которых будет гарантированно необычной или лучше. Цена: 4000 очков"
@@ -770,7 +770,7 @@
                               VerticalAlignment="Top"
                               Width="130"
                               HorizontalAlignment="Center"
-                              MouseUp="nabor2Btn_MouseUp"></dc:StyledBtn>
+                              MouseUp="nabor2Btn_MouseUp" />
 
                 <TextBlock Margin="0, 225, 0, 0"
                            Text="Набор 3. Содержит 3 случайные карты, две из которых будут гарантированно необычными или лучше. Цена: 8000 очков"
@@ -788,7 +788,7 @@
                               VerticalAlignment="Top"
                               Width="130"
                               HorizontalAlignment="Center"
-                              MouseUp="nabor3Btn_MouseUp"></dc:StyledBtn>
+                              MouseUp="nabor3Btn_MouseUp" />
             </Grid>
         </Grid>
     </Grid>

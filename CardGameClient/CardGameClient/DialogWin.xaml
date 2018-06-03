@@ -2,17 +2,26 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dc="clr-namespace:CardGameClient"
-        Title="Avalon: Battles for Glory" Name="DialogWnd" ResizeMode="NoResize" UseLayoutRounding="True" SnapsToDevicePixels="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" MinHeight="768" MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"  WindowStyle="None" WindowState="Maximized" AllowsTransparency="True" Background="#AA000000" Closing="Window_Closing" ContentRendered="DialogWnd_ContentRendered">
+        Title="Avalon: Battles for Glory" Name="DialogWnd" ResizeMode="NoResize" UseLayoutRounding="True"
+        SnapsToDevicePixels="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" MinHeight="768"
+        MinWidth="1024" Height="768" Width="1024" Cursor="/CardGameClient;component/Images/cursor.cur"
+        WindowStyle="None" WindowState="Maximized" AllowsTransparency="True" Background="#AA000000"
+        Closing="Window_Closing" ContentRendered="DialogWnd_ContentRendered">
     <Grid>
-        <Grid Height="230" Width="600"  Margin="0, -35, 0, 35">
-            <TextBlock Name="TextInfo" FontSize="14" FontFamily="Verdana" Margin="0, 0, 0, 35" HorizontalAlignment="Center" Text="Устанавливается соединение. Ожидайте..." TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap">
-            </TextBlock>
-            <dc:StyledBtn x:Name="AcceptBtn" HorizontalAlignment="Left" Text="Да" VerticalAlignment="Bottom" Height="34" Width="135" Margin="157,0,0,35" Visibility="Hidden" MouseUp="AcceptBtnOnly_MouseUp" />
-            <dc:StyledBtn x:Name="AcceptBtnOnly" HorizontalAlignment="Center" Text="ОК" VerticalAlignment="Bottom" Height="34" Width="135" Margin="0,0,0,35" Visibility="Hidden" MouseUp="AcceptBtnOnly_MouseUp" />
-            <dc:StyledBtn x:Name="CancelBtn" HorizontalAlignment="Right" Text="Отмена" VerticalAlignment="Bottom" Height="34" Width="135" Margin="0,0,157,35" Visibility="Hidden" MouseUp="Image_MouseUp" />
+        <Grid Height="230" Width="600" Margin="0, -35, 0, 35">
+            <TextBlock Name="TextInfo" FontSize="14" FontFamily="Verdana" Margin="0, 0, 0, 35"
+                       HorizontalAlignment="Center" Text="Устанавливается соединение. Ожидайте..."
+                       TextAlignment="Center" VerticalAlignment="Center" Foreground="White" TextWrapping="Wrap" />
+            <dc:StyledBtn x:Name="AcceptBtn" HorizontalAlignment="Left" Text="Да" VerticalAlignment="Bottom"
+                          Height="34" Width="135" Margin="157,0,0,35" Visibility="Hidden"
+                          MouseUp="AcceptBtnOnly_MouseUp" />
+            <dc:StyledBtn x:Name="AcceptBtnOnly" HorizontalAlignment="Center" Text="ОК" VerticalAlignment="Bottom"
+                          Height="34" Width="135" Margin="0,0,0,35" Visibility="Hidden" MouseUp="AcceptBtnOnly_MouseUp" />
+            <dc:StyledBtn x:Name="CancelBtn" HorizontalAlignment="Right" Text="Отмена" VerticalAlignment="Bottom"
+                          Height="34" Width="135" Margin="0,0,157,35" Visibility="Hidden" MouseUp="Image_MouseUp" />
             <Grid.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/popup_bg.png" />
             </Grid.Background>
         </Grid>
-        </Grid>
+    </Grid>
 </Window>

@@ -1,71 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CardGameServer;
 using System.Windows.Media.Animation;
-using System.ServiceModel;
+using System.Windows.Media.Imaging;
+using CardGameServer;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for CardPlace.xaml
+    ///     Interaction logic for CardPlace.xaml
     /// </summary>
     public partial class CardPlace : UserControl
     {
+        private readonly ThicknessAnimation animation =
+            new ThicknessAnimation(new Thickness(-7), new Thickness(-5), TimeSpan.FromMilliseconds(600));
 
-        Card thisCard;
+        private bool containsCard;
+
+        private readonly ImageBrush enemyCardBg = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_bg.png")));
+
+        private readonly BitmapImage enemyCardBorder = new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_border.png"));
+
+        private bool isMineCard;
+
+        private bool isSelected;
+
+        private readonly ImageBrush myCardBg = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_bg.png")));
+
+        private readonly BitmapImage myCardBorder = new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png"));
+
+        private Card thisCard;
+
+        public CardPlace()
+        {
+            InitializeComponent();
+            GridMain.Background = IsMineCard ? myCardBg : enemyCardBg;
+            animation.RepeatBehavior = RepeatBehavior.Forever;
+            animation.AutoReverse = true;
+            inGame = true;
+            InjuredToolTip.Content = "Тяжелая рана.\nПоказатель атаки снижен на 30%.";
+        }
 
         public bool inGame { get; set; }
 
         public bool Enabled
         {
-            get
-            {
-                return IsEnabled;
-            }
-            set
-            {
-                IsEnabled = value;
-                //Opacity = value ? 1 : 0.6;
-            }
+            get => IsEnabled;
+            set => IsEnabled = value;
         }
 
         public Card ThisCard
         {
-            get 
+            get => thisCard;
+            set
             {
-                return thisCard; 
-            }
-            set 
-            {
-
                 if (value == null)
                 {
                     thisCard = value;
                     return;
                 }
 
-                if (thisCard != null && thisCard.hp <= 0)
-                {
-                    return;
-                }
-                
-                
+                if (thisCard != null && thisCard.hp <= 0) return;
+
+
                 /*if (thisCard != null && value.hp < thisCard.hp && isMineCard && inGame)
                     AnimateDmg((thisCard.hp - value.hp).ToString());*/
-                
+
                 thisCard = value;
-                
+
                 if (value != null)
                 {
                     CardImage = App.cardImages[thisCard.id];
@@ -75,33 +84,18 @@ namespace CardGameClient
                     DefDig.DigitValue = thisCard.def.ToString();
                     InjuryEffect.Visibility = thisCard.IsInjury ? Visibility.Visible : Visibility.Hidden;
                 }
-
             }
         }
 
-        private bool containsCard = false;
-        private bool isMineCard;
-
-        private bool isSelected = false;
-
         public string Health
         {
-            get
-            {
-                return HpDig.DigitValue;
-            }
-            set
-            {
-                HpDig.DigitValue = value;
-            }
+            get => HpDig.DigitValue;
+            set => HpDig.DigitValue = value;
         }
 
         public bool selected
         {
-            get
-            {
-                return isSelected;
-            }
+            get => isSelected;
             set
             {
                 isSelected = value;
@@ -116,24 +110,9 @@ namespace CardGameClient
             }
         }
 
-        ThicknessAnimation animation = new ThicknessAnimation(new Thickness(-7), new Thickness(-5), TimeSpan.FromMilliseconds(600));
-
-        ImageBrush myCardBg = new ImageBrush(new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_bg.png" )));
-        ImageBrush enemyCardBg = new ImageBrush(new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_bg.png")));
-
-        BitmapImage myCardBorder = new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_my_border.png"));
-        BitmapImage enemyCardBorder = new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/cardmin_enemy_border.png"));
-
         public ImageSource CardImage
         {
-            get
-            {
-                return Portrait.Source;
-            }
+            get => Portrait.Source;
             set
             {
                 Portrait.Source = value;
@@ -147,38 +126,22 @@ namespace CardGameClient
 
         public bool IsMineCard
         {
-            get
-            {
-                return isMineCard;
-            }
+            get => isMineCard;
             set
             {
                 GridMain.Background = (isMineCard = value) ? myCardBg : enemyCardBg;
-                borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;                
+                borderImg.Source = isMineCard ? myCardBorder : enemyCardBorder;
             }
         }
 
         public bool ContainsCard
         {
-            get
-            {
-                return containsCard;
-            }
+            get => containsCard;
             set
             {
                 containsCard = value;
                 CardCrid.Visibility = containsCard ? Visibility.Visible : Visibility.Hidden;
             }
-        }
-
-        public CardPlace()
-        {
-            InitializeComponent();
-            GridMain.Background = IsMineCard ? myCardBg : enemyCardBg;
-            animation.RepeatBehavior = RepeatBehavior.Forever;
-            animation.AutoReverse = true;
-            inGame = true;
-            InjuredToolTip.Content = "Тяжелая рана.\nПоказатель атаки снижен на 30%.";
         }
 
 
@@ -190,18 +153,18 @@ namespace CardGameClient
 
         public void CardDeath()
         {
-            DoubleAnimation da = new DoubleAnimation();
+            var da = new DoubleAnimation();
             da.From = 1;
             da.To = 0;
             da.Duration = TimeSpan.FromMilliseconds(500);
             da.BeginTime = TimeSpan.FromMilliseconds(250);
             da.FillBehavior = FillBehavior.Stop;
-            da.Completed += delegate(object sender, EventArgs e)
+            da.Completed += delegate
             {
                 CardImage = null;
                 ContainsCard = false;
             };
-            BeginAnimation(OpacityProperty, da);            
+            BeginAnimation(OpacityProperty, da);
         }
 
 
@@ -216,7 +179,6 @@ namespace CardGameClient
                 animation.To = new Thickness(-5);
                 borderGrid.BeginAnimation(MarginProperty, animation);
             }
-            
         }
 
         private void GridMain_MouseLeave(object sender, MouseEventArgs e)
@@ -247,18 +209,19 @@ namespace CardGameClient
 
             dmgLabel.Opacity = 1;
 
-            DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
+            var db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(250));
             db.FillBehavior = FillBehavior.Stop;
             db.AutoReverse = true;
             dmgImgEffect.BeginAnimation(OpacityProperty, db);
 
-            ThicknessAnimation th = new ThicknessAnimation();
+            var th = new ThicknessAnimation();
             th.From = dmgLabel.Margin;
             th.FillBehavior = FillBehavior.Stop;
-            th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
+            th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right,
+                dmgLabel.Margin.Bottom);
             th.Duration = TimeSpan.FromMilliseconds(500);
-            th.Completed += new EventHandler(th_Completed);
-            dmgLabel.BeginAnimation(MarginProperty, th);           
+            th.Completed += th_Completed;
+            dmgLabel.BeginAnimation(MarginProperty, th);
         }
 
         public void AnimateDmgAdtnl(LastHitInfo lhi)
@@ -285,33 +248,34 @@ namespace CardGameClient
                 dmgLabel.Opacity = 1;
 
 
-                DoubleAnimation db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(350));
+                var db = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(350));
                 db.FillBehavior = FillBehavior.Stop;
                 db.AutoReverse = true;
                 dmgImgEffect.BeginAnimation(OpacityProperty, db);
 
-                ThicknessAnimation th = new ThicknessAnimation();
+                var th = new ThicknessAnimation();
                 th.From = dmgLabel.Margin;
                 th.FillBehavior = FillBehavior.Stop;
-                th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right, dmgLabel.Margin.Bottom);
+                th.To = new Thickness(dmgLabel.Margin.Left, dmgLabel.Margin.Top - 70, dmgLabel.Margin.Right,
+                    dmgLabel.Margin.Bottom);
                 th.Duration = TimeSpan.FromMilliseconds(700);
-                th.Completed += new EventHandler(th_Completed);
+                th.Completed += th_Completed;
                 dmgLabel.BeginAnimation(MarginProperty, th);
             }
 
-            ThicknessAnimation tha = new ThicknessAnimation();
+            var tha = new ThicknessAnimation();
             tha.From = dmgLabeladtnl.Margin;
             tha.FillBehavior = FillBehavior.Stop;
             tha.To = new Thickness(dmgLabeladtnl.Margin.Left, dmgLabeladtnl.Margin.Top - 70, dmgLabeladtnl.Margin.Right,
                 dmgLabeladtnl.Margin.Bottom);
             tha.Duration = TimeSpan.FromMilliseconds(700);
-            tha.Completed += new EventHandler(tha_Completed);
+            tha.Completed += tha_Completed;
             dmgLabeladtnl.BeginAnimation(MarginProperty, tha);
         }
 
         public void AnimateTurn(bool enemy = false)
-        {           
-            ThicknessAnimation th = new ThicknessAnimation();
+        {
+            var th = new ThicknessAnimation();
             th.From = CardCrid.Margin;
             th.FillBehavior = FillBehavior.Stop;
 
@@ -326,7 +290,7 @@ namespace CardGameClient
             CardCrid.BeginAnimation(MarginProperty, th);
         }
 
-        void th_Completed(object sender, EventArgs e)
+        private void th_Completed(object sender, EventArgs e)
         {
             dmgLabel.Opacity = 0;
             dmgLabel.Content = "";
@@ -335,7 +299,7 @@ namespace CardGameClient
         }
 
 
-        void tha_Completed(object sender, EventArgs e)
+        private void tha_Completed(object sender, EventArgs e)
         {
             dmgLabeladtnl.Opacity = 0;
             dmgLabeladtnl.Content = "";
@@ -345,37 +309,36 @@ namespace CardGameClient
 
         private void sellBtn_MouseUp_1(object sender, MouseButtonEventArgs e)
         {
-            DialogWin dw = new DialogWin(App.WindowList["LobbyWnd"], "Вы точно хотите продать эту карту за 350 очков?",
+            var dw = new DialogWin(App.WindowList["LobbyWnd"], "Вы точно хотите продать эту карту за 350 очков?",
                 MessageBoxButton.YesNo);
             App.WindowList.Add(dw.Name, dw);
 
             if (dw.ShowDialog() == true)
             {
-                bool res = false;
+                var res = false;
 
                 new Action(delegate
-                {
-                    bool isError = false;
-                    
-                    App.ProxyMutex.WaitOne();
-                    try
                     {
-                        res = ServiceProxy.Proxy.SellCard(App.UserName, thisCard.slot);
-                    }
-                    catch (CommunicationException exc)
-                    {
-                        App.OnException();
-                        isError = true;
-                    }
+                        var isError = false;
 
-                    App.ProxyMutex.ReleaseMutex();
+                        App.ProxyMutex.WaitOne();
+                        try
+                        {
+                            res = ServiceProxy.Proxy.SellCard(App.UserName, thisCard.slot);
+                        }
+                        catch (CommunicationException exc)
+                        {
+                            App.OnException();
+                            isError = true;
+                        }
 
-                    if (isError)
-                    {
-                        App.OnConnectionError();
-                        return;
+                        App.ProxyMutex.ReleaseMutex();
+
+                        if (isError)
+                        {
+                            App.OnConnectionError();
+                        }
                     }
-                }
                 ).Invoke();
 
                 if (res)
@@ -386,8 +349,8 @@ namespace CardGameClient
                     (App.WindowList["LobbyWnd"] as LobbyScreen).GetAllCard();
                     (App.WindowList["LobbyWnd"] as LobbyScreen).UpdateInfo();
                 }
-
             }
+
             sellBtn.Visibility = Visibility.Hidden;
         }
 
@@ -396,6 +359,5 @@ namespace CardGameClient
             if (!inGame && sellBtn.IsEnabled)
                 sellBtn.Visibility = Visibility.Visible;
         }
-     
     }
 }

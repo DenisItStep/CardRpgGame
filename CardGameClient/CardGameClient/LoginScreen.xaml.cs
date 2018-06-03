@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.ServiceModel;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using CardGameServer;
-using System.ServiceModel;
-using System.IO;
-using System.Threading;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for LoginScreen.xaml
+    ///     Interaction logic for LoginScreen.xaml
     /// </summary>
     public partial class LoginScreen : Window
     {
@@ -40,8 +35,8 @@ namespace CardGameClient
         {
             try
             {
-                ChannelFactory<Servicegame> cf =
-                            new ChannelFactory<Servicegame>("MyEndpoint");
+                var cf =
+                    new ChannelFactory<Servicegame>("MyEndpoint");
 
                 ServiceProxy.Proxy = cf.CreateChannel();
 
@@ -50,26 +45,23 @@ namespace CardGameClient
                 //2 already online 
                 //3 hacking attempt
 
-                int res = ServiceProxy.Proxy.Login(login, passw);
+                var res = ServiceProxy.Proxy.Login(login, passw);
 
                 Thread.Sleep(2000); //emulate conntion procc
 
-                this.Dispatcher.Invoke(new Action(delegate 
-                {
-                    loginBtn.IsEnabled = true;
-                }));
+                Dispatcher.Invoke(new Action(delegate { loginBtn.IsEnabled = true; }));
 
                 if (res == 0)
                 {
                     App.UserName = login;
                     App.isConnected = true;
 
-                    App.iamonlineTread = new Thread(App.iAmOnline) { IsBackground = true };
+                    App.iamonlineTread = new Thread(App.iAmOnline) {IsBackground = true};
                     App.iamonlineTread.Start();
 
-                    bool isError = false;
+                    var isError = false;
 
-                    bool contains = false;
+                    var contains = false;
 
                     App.ProxyMutex.WaitOne();
                     try
@@ -88,95 +80,96 @@ namespace CardGameClient
 
 
                     if (!contains)
-                    {
-                        this.Dispatcher.Invoke(new Action(delegate
+                        Dispatcher.Invoke(new Action(delegate
                         {
                             if (!App.WindowList.ContainsKey("CharacterCreateWnd"))
                             {
-                                CharacterCreateScreen ccs = new CharacterCreateScreen();
+                                var ccs = new CharacterCreateScreen();
                                 App.WindowList.Add(ccs.Name, ccs);
                             }
                             else
+                            {
                                 (App.WindowList["CharacterCreateWnd"] as CharacterCreateScreen).OnWindowShow();
+                            }
 
                             App.WindowList["CharacterCreateWnd"].Show();
                             //loginTextBox.Text = "";
                             passwordTextBox.Password = "";
                         }));
-                    }
                     else
-                    {
-                        this.Dispatcher.Invoke(new Action(delegate
+                        Dispatcher.Invoke(new Action(delegate
                         {
                             if (!App.WindowList.ContainsKey("LobbyWnd"))
                             {
-                                LobbyScreen ls = new LobbyScreen();
+                                var ls = new LobbyScreen();
                                 App.WindowList.Add(ls.Name, ls);
                             }
                             else
+                            {
                                 (App.WindowList["LobbyWnd"] as LobbyScreen).OnWindowShow();
+                            }
 
-                            App.WindowList["LobbyWnd"].Show();                            
+                            App.WindowList["LobbyWnd"].Show();
                             //loginTextBox.Text = "";
                             passwordTextBox.Password = "";
-                        }));                        
-                    }
+                        }));
 
-                    Thread.Sleep(1000); 
+                    Thread.Sleep(1000);
 
-                    this.Dispatcher.Invoke(new Action(delegate
+                    Dispatcher.Invoke(new Action(delegate
                     {
                         errorPopupInfo.HideWaitInfo();
                         Hide();
                     }));
                 }
-                
+
                 else if (res == 1)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate {
-                       errorPopupInfo.HideWaitInfoAndShowError("Неправильный логин или пароль!");
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        errorPopupInfo.HideWaitInfoAndShowError("Неправильный логин или пароль!");
                     }));
                 }
                 else if (res == 2)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate {
+                    Dispatcher.Invoke(new Action(delegate
+                    {
                         errorPopupInfo.HideWaitInfoAndShowError("Кто-то другой использует ваш аккаунт!");
                     }));
                 }
                 else if (res == 3)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate {
-                       errorPopupInfo.HideWaitInfoAndShowError("Поля заполнены некорректено!");
+                    Dispatcher.Invoke(new Action(delegate
+                    {
+                        errorPopupInfo.HideWaitInfoAndShowError("Поля заполнены некорректено!");
                     }));
                 }
 
 
                 if (!App.isConnected)
-                {
-                    this.Dispatcher.Invoke(new Action(delegate
+                    Dispatcher.Invoke(new Action(delegate
                     {
-                        DoubleAnimation da = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(100));
+                        var da = new DoubleAnimation(1, 0, TimeSpan.FromMilliseconds(100));
                         da.BeginTime = TimeSpan.FromMilliseconds(2000);
                         da.FillBehavior = FillBehavior.Stop;
-                        da.Completed += new EventHandler(da_Completed);
+                        da.Completed += da_Completed;
                         LoginErrorInfo.BeginAnimation(OpacityProperty, da);
                     }));
-                }
             }
             catch (CommunicationException)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
                     errorPopupInfo.HideWaitInfoAndShowError(
                         "Ошибка подключения!\r\nПопробуйте повторить попытку позже..."
-                        );
+                    );
                 }));
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     App.isConnected = false;
                     loginBtn.IsEnabled = true;
@@ -186,7 +179,7 @@ namespace CardGameClient
             }
         }
 
-        void da_Completed(object sender, EventArgs e)
+        private void da_Completed(object sender, EventArgs e)
         {
             LoginErrorInfo.Content = "";
             LoginErrorInfo.Opacity = 1;
@@ -199,9 +192,10 @@ namespace CardGameClient
                 login = loginTextBox.Text;
                 passw = passwordTextBox.Password;
 
-                if (login == "" || passw == "" 
-                    || sqlInjection.Words.Any(word => login.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
-                    || passw.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
+                if (login == "" || passw == ""
+                                || sqlInjection.Words.Any(word =>
+                                    login.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0
+                                    || passw.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
                     errorPopupInfo.ShowError("Поля заполнены некорректено!");
                     return;
@@ -210,9 +204,8 @@ namespace CardGameClient
                 loginBtn.IsEnabled = false;
                 errorPopupInfo.ShowWaitInfo("Попытка авторизации. Ожидайте...");
 
-                Thread loginThread = new Thread(Login);
+                var loginThread = new Thread(Login);
                 loginThread.Start();
-                
             }
             catch (Exception exc)
             {
@@ -225,40 +218,40 @@ namespace CardGameClient
             Application.Current.Shutdown();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             Application.Current.Shutdown();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           // ldscreen.Owner = this;
+            // ldscreen.Owner = this;
             try
             {
-                App.WindowList.Add(this.Name, this);
+                App.WindowList.Add(Name, this);
                 foreach (var item in Directory.GetFiles("Images/Cards/", "*.png", SearchOption.AllDirectories))
                 {
-                    BitmapImage img = new BitmapImage();
+                    var img = new BitmapImage();
                     img.BeginInit();
                     img.UriSource = new Uri(item, UriKind.Relative);
                     img.CacheOption = BitmapCacheOption.OnLoad;
                     img.EndInit();
 
 
-                    App.cardImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+                    App.cardImages.Add(int.Parse(Path.GetFileNameWithoutExtension(item)), img);
                 }
 
 
                 foreach (var item in Directory.GetFiles("Images/Numeric/", "*.png", SearchOption.AllDirectories))
                 {
-                    BitmapImage img = new BitmapImage();
+                    var img = new BitmapImage();
                     img.BeginInit();
                     img.UriSource = new Uri(item, UriKind.Relative);
                     img.CacheOption = BitmapCacheOption.OnLoad;
                     img.EndInit();
 
 
-                    App.digitImages.Add(Int32.Parse(System.IO.Path.GetFileNameWithoutExtension(item)), img);
+                    App.digitImages.Add(int.Parse(Path.GetFileNameWithoutExtension(item)), img);
                 }
 
                 App.rarityDictionary.Add(0, new Rarity("Герой", Brushes.PaleGoldenrod));
@@ -272,14 +265,13 @@ namespace CardGameClient
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.dumpException(exc);
                     Application.Current.Shutdown();
-                }));     
+                }));
             }
-            
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -288,9 +280,6 @@ namespace CardGameClient
 
         private void LoginWnd_ContentRendered(object sender, EventArgs e)
         {
-            
         }
-
-        
     }
 }

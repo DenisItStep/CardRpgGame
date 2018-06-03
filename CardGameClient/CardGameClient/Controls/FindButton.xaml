@@ -1,13 +1,14 @@
 ﻿<UserControl x:Class="CardGameClient.FindButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dc="clr-namespace:CardGameClient"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="83" d:DesignWidth="300">
     <Grid>
-        <dc:StyledBtn x:Name="mainBtn" Text="Начать игру" TextFontSize="23" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="300" Height="52" MouseUp="findBtn_MouseUp">
+        <dc:StyledBtn x:Name="mainBtn" Text="Начать игру" TextFontSize="23" HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom" Width="300" Height="52" MouseUp="findBtn_MouseUp">
             <dc:StyledBtn.Background>
                 <ImageBrush ImageSource="/CardGameClient;component/Images/findBtn.png" />
             </dc:StyledBtn.Background>
@@ -18,32 +19,39 @@
                 <ImageBrush ImageSource="/CardGameClient;component/Images/findBtn_hover.png" />
             </dc:StyledBtn.BackgroundHover>
         </dc:StyledBtn>
-        <Grid Height="30" HorizontalAlignment="Center" Margin="0,0,0,52" Name="infoGrid" VerticalAlignment="Bottom" Width="245" Background="#82000000" Visibility="Hidden">
+        <Grid Height="30" HorizontalAlignment="Center" Margin="0,0,0,52" Name="infoGrid" VerticalAlignment="Bottom"
+              Width="245" Background="#82000000" Visibility="Hidden">
             <Grid.Clip>
-                <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,245,45"/>
+                <RectangleGeometry RadiusX="15" RadiusY="15" Rect="0,0,245,45" />
             </Grid.Clip>
-            <Label Name="textLabel" Content="Ожидание 2-го игрока" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro" Foreground="White" FontSize="14" RenderTransformOrigin="0.5,0.5" Margin="59,2,30,2" Width="Auto">
+            <Label Name="textLabel" Content="Ожидание 2-го игрока" Height="Auto" HorizontalAlignment="Center"
+                   VerticalAlignment="Center" FontFamily="/CardGameClient;component/Fonts/#Myriad Pro"
+                   Foreground="White" FontSize="14" RenderTransformOrigin="0.5,0.5" Margin="59,2,30,2" Width="Auto">
                 <Label.Effect>
-                    <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="334" ShadowDepth="1.7"/>
+                    <DropShadowEffect BlurRadius="0" RenderingBias="Quality" Direction="334" ShadowDepth="1.7" />
                 </Label.Effect>
                 <Label.RenderTransform>
                     <TransformGroup>
-                        <ScaleTransform ScaleX="1.2"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
+                        <ScaleTransform ScaleX="1.2" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Image RenderOptions.BitmapScalingMode="Fant" Height="22" HorizontalAlignment="Left" Margin="18,0,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="22" Source="/CardGameClient;component/Images/wait_krug.png">
+            <Image RenderOptions.BitmapScalingMode="Fant" Height="22" HorizontalAlignment="Left" Margin="18,0,0,0"
+                   Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="22"
+                   Source="/CardGameClient;component/Images/wait_krug.png">
                 <Image.RenderTransform>
-                    <RotateTransform CenterX="11" CenterY="11"/>
+                    <RotateTransform CenterX="11" CenterY="11" />
                 </Image.RenderTransform>
                 <Image.Triggers>
                     <EventTrigger RoutedEvent="Loaded">
                         <BeginStoryboard>
                             <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" To="360" Duration="0:0:3" RepeatBehavior="Forever"/>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)"
+                                    To="360" Duration="0:0:3" RepeatBehavior="Forever" />
                             </Storyboard>
                         </BeginStoryboard>
                     </EventTrigger>

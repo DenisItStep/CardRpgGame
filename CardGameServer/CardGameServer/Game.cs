@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 
 namespace CardGameServer
@@ -12,11 +10,9 @@ namespace CardGameServer
         [DataMember]
         public LastHitInfo lastHitInfo { get; set; }
 
-        [DataMember]
-        public Gamer fGamer = null;
+        [DataMember] public Gamer fGamer;
 
-        [DataMember]
-        public Gamer tGamer = null;
+        [DataMember] public Gamer tGamer;
 
         //debug
         public bool Init1 = true;
@@ -25,20 +21,15 @@ namespace CardGameServer
 
         public int Level { get; set; }
 
-        [DataMember]
-        public List<string> Gamers = new List<string>();
+        [DataMember] public List<string> Gamers = new List<string>();
 
-        [DataMember]
-        public List<Card> firstGamerCards;
+        [DataMember] public List<Card> firstGamerCards;
 
-        [DataMember]
-        public List<Card> twoGamerCards;
+        [DataMember] public List<Card> twoGamerCards;
 
-        [DataMember]
-        public int gameState;
+        [DataMember] public int gameState;
 
-        [DataMember]
-        public string currUsr;
+        [DataMember] public string currUsr;
 
         [DataMember]
         public Reward WinGamerReward { get; set; }
@@ -48,13 +39,13 @@ namespace CardGameServer
 
         public Game(Game oldGame)
         {
-            this.Gamers = new List<string>(oldGame.Gamers);
-            this.firstGamerCards = new List<Card>(oldGame.firstGamerCards);
-            this.twoGamerCards = new List<Card>(oldGame.twoGamerCards);
-            this.gameState = oldGame.gameState;
-            this.currUsr = oldGame.currUsr;
-            this.WinGamerReward = oldGame.WinGamerReward;
-            this.LooseGamerReward = oldGame.LooseGamerReward;
+            Gamers = new List<string>(oldGame.Gamers);
+            firstGamerCards = new List<Card>(oldGame.firstGamerCards);
+            twoGamerCards = new List<Card>(oldGame.twoGamerCards);
+            gameState = oldGame.gameState;
+            currUsr = oldGame.currUsr;
+            WinGamerReward = oldGame.WinGamerReward;
+            LooseGamerReward = oldGame.LooseGamerReward;
         }
 
 
@@ -78,21 +69,20 @@ namespace CardGameServer
         public void AddSecondUser(string user, List<Card> tgc)
         {
             Program.UserThreadLock.EnterReadLock();
-            Gamer gamer = Program.OnlineUsers.Find(u => u.nick == user);
+            var gamer = Program.OnlineUsers.Find(u => u.nick == user);
             Program.UserThreadLock.ExitReadLock();
 
 
-            int dmg1 = firstGamerCards.Sum(ccc => ccc.dmg);
-            int dmg2 = tgc.Sum(ccc => ccc.dmg);
+            var dmg1 = firstGamerCards.Sum(ccc => ccc.dmg);
+            var dmg2 = tgc.Sum(ccc => ccc.dmg);
 
 
-            int def1 = firstGamerCards.Sum(ccc => ccc.def);
-            int def2 = tgc.Sum(ccc => ccc.def);
+            var def1 = firstGamerCards.Sum(ccc => ccc.def);
+            var def2 = tgc.Sum(ccc => ccc.def);
 
 
-            int hp1 = firstGamerCards.Sum(ccc => ccc.hp);
-            int hp2 = tgc.Sum(ccc => ccc.hp);
-
+            var hp1 = firstGamerCards.Sum(ccc => ccc.hp);
+            var hp2 = tgc.Sum(ccc => ccc.hp);
 
 
             if (dmg2 < dmg1 && def2 < def1 && hp2 < hp1)
@@ -104,7 +94,6 @@ namespace CardGameServer
                 tGamer = fGamer;
                 fGamer = gamer;
             }
-
             /*int initatv1 = firstGamerCards.Sum(ccc => ccc.Initiative);
             int initatv2 = tgc.Sum(ccc => ccc.Initiative);
 
@@ -143,15 +132,17 @@ namespace CardGameServer
                     getReward(Gamers[0]);
                     getReward(Gamers[1], true);
                 }
+
                 gameState = 4;
                 return true;
             }
+
             return false;
         }
 
         public void getReward(string nickname, bool isWinner = false)
         {
-            Reward reward = new Reward();
+            var reward = new Reward();
 
             if (isWinner)
             {
@@ -159,12 +150,10 @@ namespace CardGameServer
                 reward.Score = Formulas.RndNext(123, 133);
                 if (Formulas.RndNext(0, 3) == 1) //drop card % winner
                 {
-                    List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
-                    if (clst.Count > 1)
-                    {
-                        reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
-                    }
+                    var clst = Card.GetAllavailableCardsByNickName(nickname);
+                    if (clst.Count > 1) reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
                 }
+
                 WinGamerReward = reward;
             }
             else
@@ -173,15 +162,12 @@ namespace CardGameServer
                 reward.Score = Formulas.RndNext(62, 72);
                 if (Formulas.RndNext(0, 6) == 1) //drop card % looser
                 {
-                    List<Card> clst = Card.GetAllavailableCardsByNickName(nickname);
-                    if (clst.Count > 1)
-                    {
-                        reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
-                    }
-               }
+                    var clst = Card.GetAllavailableCardsByNickName(nickname);
+                    if (clst.Count > 1) reward.NewCard = clst[Formulas.RndNext(0, clst.Count)];
+                }
+
                 LooseGamerReward = reward;
             }
         }
-
     }
 }

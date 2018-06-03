@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using CardGameServer;
 using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using CardGameServer;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for InGameMenuEscWindow.xaml
+    ///     Interaction logic for InGameMenuEscWindow.xaml
     /// </summary>
     public partial class InGameMenuEscWindow : Window
     {
@@ -28,14 +19,13 @@ namespace CardGameClient
 
         private void CancelBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            App.WindowList.Remove(this.Name);
+            App.WindowList.Remove(Name);
             Close();
         }
 
         private void LeaveBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
-            bool isError = false;
+            var isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
                 App.ProxyMutex.WaitOne();
@@ -48,6 +38,7 @@ namespace CardGameClient
                     App.OnException();
                     isError = true;
                 }
+
                 App.ProxyMutex.ReleaseMutex();
             }
 
@@ -60,22 +51,21 @@ namespace CardGameClient
             App.InGame = false;
 
 
-            App.WindowList["LobbyWnd"].Show();           
+            App.WindowList["LobbyWnd"].Show();
 
 
             new Action(delegate
             {
                 Thread.Sleep(1000);
 
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     //App.ForceClosing = false;
                     Owner.Hide();
-                    App.WindowList.Remove(this.Name);
+                    App.WindowList.Remove(Name);
                     Close();
                 }));
-
-            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+            }).BeginInvoke(delegate { }, null);
         }
 
         private void ExitBtn_MouseUp(object sender, MouseButtonEventArgs e)

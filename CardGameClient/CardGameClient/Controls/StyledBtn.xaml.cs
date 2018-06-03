@@ -1,33 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for StyledBtn.xaml
+    ///     Interaction logic for StyledBtn.xaml
     /// </summary>
     public partial class StyledBtn : UserControl
     {
-        ImageBrush normal = new ImageBrush(new BitmapImage(
-           new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui.png")));
-        ImageBrush hover = new ImageBrush(new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_hover.png")));
-        ImageBrush disabled = new ImageBrush(new BitmapImage(
+        private readonly ImageBrush disabled = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_disabled.png")));
 
-        Thickness normalM = new Thickness(0);
-        Thickness downM = new Thickness(0, 1, 0, 0);
+        private readonly Thickness downM = new Thickness(0, 1, 0, 0);
+
+        private readonly Thickness normalM = new Thickness(0);
 
         public StyledBtn()
         {
@@ -35,82 +25,49 @@ namespace CardGameClient
         }
 
 
-        public ImageBrush BackgroundNormal
-        {
-            get
-            {
-                return normal;
-            }
-            set
-            {
-                normal = value;
-            }
-        }
+        public ImageBrush BackgroundNormal { get; set; } = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui.png")));
 
         public bool Enabled
         {
-            get
-            {
-                return IsEnabled;
-            }
+            get => IsEnabled;
             set
             {
                 IsEnabled = value;
-                Background = IsEnabled ? normal : disabled;
+                Background = IsEnabled ? BackgroundNormal : disabled;
             }
         }
 
-        public ImageBrush BackgroundHover
-        {
-            get
-            {
-                return hover;
-            }
-            set
-            {
-                hover = value;
-            }
-        }
+        public ImageBrush BackgroundHover { get; set; } = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/btn_ui_hover.png")));
 
-        public Double TextFontSize
+        public double TextFontSize
         {
-            get
-            {
-                return textLabel.FontSize;
-            }
-            set
-            {
-                textLabel.FontSize = value;
-            }
+            get => textLabel.FontSize;
+            set => textLabel.FontSize = value;
         }
 
 
         public string Text
         {
-            get
-            {
-                return textLabel.Content.ToString();
-            }
-            set
-            {
-                textLabel.Content = value;
-            }
+            get => textLabel.Content.ToString();
+            set => textLabel.Content = value;
         }
 
         private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Background = hover;
+            Background = BackgroundHover;
             textLabel.Margin = downM;
         }
 
         public void UserControl_MouseEnter(object sender, MouseEventArgs e)
         {
-            Background = hover;
+            Background = BackgroundHover;
         }
 
         private void UserControl_MouseLeave(object sender, MouseEventArgs e)
         {
-            Background = normal;
+            Background = BackgroundNormal;
             textLabel.Margin = normalM;
         }
 

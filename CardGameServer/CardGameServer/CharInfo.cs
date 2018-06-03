@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace CardGameServer
 {
@@ -16,7 +12,7 @@ namespace CardGameServer
         public string heroname { get; set; }
 
         [DataMember]
-        public int character_level {get; set;}
+        public int character_level { get; set; }
 
         [DataMember]
         public int exp { get; set; }
@@ -45,5 +41,4 @@ namespace CardGameServer
             score = r;
         }
     }
-
 }

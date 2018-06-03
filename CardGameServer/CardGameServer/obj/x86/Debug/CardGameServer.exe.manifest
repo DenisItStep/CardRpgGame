@@ -50,17 +50,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>87cT/sRqaHHKN+d66yEvuCe42do=</dsig:DigestValue>
+        <dsig:DigestValue>5kzKvtTVG5FBZr4IArYPCzlgcxU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="CardGameServer.exe.config" size="1885">
+  <file name="CardGameServer.exe.config" size="1909">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>jsgLvl/aGf9dMFRWefPrzxq2OE8=</dsig:DigestValue>
+      <dsig:DigestValue>6caLWzOCZvRofXR/KejA35sIIMU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="data-center.ico" size="102877">

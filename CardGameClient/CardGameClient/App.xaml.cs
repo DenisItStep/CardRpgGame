@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using CardGameServer;
-using System.Threading;
-using System.IO;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
         public static bool ForceClosing = true;
-        public static string UserName { get; set; }
-        public static string NickName { get; set; }
-        public static LoginScreen loginScreen { get; set; }
 
         public static Mutex ProxyMutex = new Mutex();
 
@@ -27,7 +22,7 @@ namespace CardGameClient
 
         public static Thread iamonlineTread;
 
-        public static bool isConnected = false;
+        public static bool isConnected;
 
         public static Dictionary<string, Window> WindowList = new Dictionary<string, Window>();
 
@@ -37,62 +32,68 @@ namespace CardGameClient
         public static CharInfo charInfo;
 
         public static Dictionary<int, Rarity> rarityDictionary = new Dictionary<int, Rarity>();
+        public static string UserName { get; set; }
+        public static string NickName { get; set; }
+        public static LoginScreen loginScreen { get; set; }
 
 
         public static void iAmOnline()
         {
             while (true)
             {
-                if (!App.InGame && App.isConnected)
+                if (!InGame && isConnected)
                 {
-                    bool isError = false;
+                    var isError = false;
 
-                    App.ProxyMutex.WaitOne();
+                    ProxyMutex.WaitOne();
                     try
                     {
-                        ServiceProxy.Proxy.iAmOnline(App.UserName);
+                        ServiceProxy.Proxy.iAmOnline(UserName);
                     }
                     catch (Exception exc)
                     {
                         isError = true;
-                        App.OnException();
+                        OnException();
                     }
-                    App.ProxyMutex.ReleaseMutex();
+
+                    ProxyMutex.ReleaseMutex();
 
                     if (isError)
                     {
-                        App.OnConnectionError();
+                        OnConnectionError();
                         return;
                     }
                 }
+
                 Thread.Sleep(1000);
             }
         }
 
         public static void OnException()
         {
-            App.loginScreen.Dispatcher.Invoke(new Action(delegate
+            loginScreen.Dispatcher.Invoke(new Action(delegate
             {
-                App.isConnected = false;
-                App.loginScreen.loginBtn.IsEnabled = true;
-                App.loginScreen.errorPopupInfo.ShowError("Связь с сервером неожиданно прервана...");
-                App.loginScreen.Show();
+                isConnected = false;
+                loginScreen.loginBtn.IsEnabled = true;
+                loginScreen.errorPopupInfo.ShowError("Связь с сервером неожиданно прервана...");
+                loginScreen.Show();
             }));
         }
 
         public static void OnConnectionError()
         {
             Thread.Sleep(2000);
-            App.loginScreen.Dispatcher.Invoke(new Action(delegate
+            loginScreen.Dispatcher.Invoke(new Action(delegate
             {
-                App.isConnected = false;
-                for (int i = App.WindowList.Count - 1; i > 0; i--)
+                isConnected = false;
+                for (var i = WindowList.Count - 1; i > 0; i--)
                 {
-                    Window window = App.WindowList.Values.ElementAt(i);
+                    var window = WindowList.Values.ElementAt(i);
 
                     if (window.Name == "LoginWnd") continue;
-                    else if (window.Name == "DialogWnd" || window.Name == "NewCardWnd"
-                        || window.Name == "GameResultWnd" || window.Name == "InGameMenuEscWnd" || window.Name == "CardPackWnd")
+                    if (window.Name == "DialogWnd" || window.Name == "NewCardWnd"
+                                                   || window.Name == "GameResultWnd" ||
+                                                   window.Name == "InGameMenuEscWnd" || window.Name == "CardPackWnd")
                         window.Close();
                     else
                         window.Hide();
@@ -123,13 +124,16 @@ namespace CardGameClient
             {
                 if (!Directory.Exists("Log")) Directory.CreateDirectory("Log");
 
-                string dir_name = "Log/" + DateTime.Now.ToString("dd_MMM");
+                var dir_name = "Log/" + DateTime.Now.ToString("dd_MMM");
                 if (!Directory.Exists(dir_name))
                     Directory.CreateDirectory(dir_name);
 
-                File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log", exc.Message + "\r\n" + exc.StackTrace);
+                File.WriteAllText(dir_name + "/error_" + DateTime.Now.ToString("dd_MMM_HH_mm_ss") + ".log",
+                    exc.Message + "\r\n" + exc.StackTrace);
             }
-            catch { }
+            catch
+            {
+            }
         }
     }
 }

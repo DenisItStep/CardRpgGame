@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CardGameClient
+﻿namespace CardGameClient
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     public class sqlInjection
     {
-        public static string[] Words = 
-        { 
+        public static string[] Words =
+        {
             "--",
             "\"",
-             "'",
+            "'",
             ";--",
             ";",
             "/*",
@@ -50,5 +40,3 @@ namespace CardGameClient
         };
     }
 }
-
-

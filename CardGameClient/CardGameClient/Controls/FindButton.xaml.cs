@@ -1,40 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Timers;
+
 //using System.Threading;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for FindButton.xaml
+    ///     Interaction logic for FindButton.xaml
     /// </summary>
     public partial class FindButton : UserControl
     {
-        ImageBrush normal = new ImageBrush(new BitmapImage(
-            new Uri("pack://application:,,,/CardGameClient;component/Images/findBtn.png")));
-
-        ImageBrush disabled = new ImageBrush(new BitmapImage(
+        private readonly ImageBrush disabled = new ImageBrush(new BitmapImage(
             new Uri("pack://application:,,,/CardGameClient;component/Images/findBtn_disabled.png")));
 
-        private bool inProgress = false;
+        private bool inProgress;
+
+        private readonly ImageBrush normal = new ImageBrush(new BitmapImage(
+            new Uri("pack://application:,,,/CardGameClient;component/Images/findBtn.png")));
+
+        //Timer t1 = new Timer(1000);
+
+        public FindButton()
+        {
+            InitializeComponent();
+            //t1.Elapsed += new ElapsedEventHandler(t1_Elapsed);
+        }
 
         public bool Enabled
         {
-            get
-            {
-                return IsEnabled;
-            }
+            get => IsEnabled;
             set
             {
                 IsEnabled = value;
@@ -45,13 +43,10 @@ namespace CardGameClient
 
         public bool InProgress
         {
-            get 
-            { 
-                return inProgress; 
-            }
-            set 
+            get => inProgress;
+            set
             {
-                inProgress = value; 
+                inProgress = value;
 
                 if (inProgress)
                 {
@@ -66,14 +61,6 @@ namespace CardGameClient
             }
         }
 
-        //Timer t1 = new Timer(1000);
-
-        public FindButton()
-        {
-            InitializeComponent();
-            //t1.Elapsed += new ElapsedEventHandler(t1_Elapsed);
-        }
-
         /*void t1_Elapsed(object sender, ElapsedEventArgs e)
         {
             //textLabel.Content
@@ -81,7 +68,6 @@ namespace CardGameClient
 
         private void findBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-           
         }
     }
 }

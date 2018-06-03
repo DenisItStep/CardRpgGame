@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using CardGameServer;
-using System.IO;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace CardGameClient
 {
     /// <summary>
-    /// Interaction logic for CharacterCreateScreen.xaml
+    ///     Interaction logic for CharacterCreateScreen.xaml
     /// </summary>
     public partial class CharacterCreateScreen : Window
     {
-        int CardIndex = -1;
-        CardPlace selectedCardPlace;
-        List<Card> templates = null;
+        private int CardIndex = -1;
+        private CardPlace selectedCardPlace;
+        private List<Card> templates;
 
         public CharacterCreateScreen()
         {
@@ -32,9 +26,9 @@ namespace CardGameClient
             errorPopupInfo.grid1.Margin = new Thickness(0, -35, 0, 35);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
-            bool isError = false;
+            var isError = false;
             if (App.isConnected && ServiceProxy.Proxy != null)
             {
                 App.isConnected = false;
@@ -48,16 +42,13 @@ namespace CardGameClient
                     App.OnException();
                     isError = true;
                 }
+
                 App.ProxyMutex.ReleaseMutex();
             }
 
             if (App.ForceClosing)
                 Application.Current.Shutdown();
-            else if (isError)
-            {
-                App.OnConnectionError();
-                return;
-            }
+            else if (isError) App.OnConnectionError();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -76,27 +67,23 @@ namespace CardGameClient
             //show loginWnd
             App.WindowList["LoginWnd"].Show();
 
-            new Action(delegate {
-
+            new Action(delegate
+            {
                 Thread.Sleep(1000);
 
-                this.Dispatcher.Invoke(new Action(delegate
-                {
-                    Hide();
-                }));
-
-            }).BeginInvoke(new AsyncCallback(delegate(IAsyncResult ar) { }), null);
+                Dispatcher.Invoke(new Action(delegate { Hide(); }));
+            }).BeginInvoke(delegate { }, null);
 
 
             //Close();
         }
-        
+
         private void CreateCharacter()
         {
             try
             {
-                bool isError = false;
-                bool result = false;
+                var isError = false;
+                var result = false;
 
                 App.ProxyMutex.WaitOne();
                 try
@@ -120,15 +107,17 @@ namespace CardGameClient
 
                 if (result)
                 {
-                    this.Dispatcher.Invoke(new Action(delegate 
+                    Dispatcher.Invoke(new Action(delegate
                     {
                         if (!App.WindowList.ContainsKey("LobbyWnd"))
                         {
-                            LobbyScreen ls = new LobbyScreen();
+                            var ls = new LobbyScreen();
                             App.WindowList.Add(ls.Name, ls);
                         }
                         else
+                        {
                             (App.WindowList["LobbyWnd"] as LobbyScreen).OnWindowShow();
+                        }
 
                         App.WindowList["LobbyWnd"].Show();
 
@@ -145,14 +134,16 @@ namespace CardGameClient
 
                 else
                 {
-                    this.Dispatcher.Invoke(new Action( () =>
-                        errorPopupInfo.ShowError("Ошибка при создании персонажа. Персонаж с таким именем уже существует...")
+                    Dispatcher.Invoke(new Action(() =>
+                        errorPopupInfo.ShowError(
+                            "Ошибка при создании персонажа. Персонаж с таким именем уже существует...")
                     ));
                 }
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action( delegate {
+                Dispatcher.Invoke(new Action(delegate
+                {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     App.dumpException(exc);
@@ -163,9 +154,10 @@ namespace CardGameClient
 
         private void createCharBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            string charName = characterNameTextBox.Text;
+            var charName = characterNameTextBox.Text;
 
-            if (charName == "" || sqlInjection.Words.Any(word => charName.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
+            if (charName == "" ||
+                sqlInjection.Words.Any(word => charName.IndexOf(word, StringComparison.OrdinalIgnoreCase) >= 0))
             {
                 errorPopupInfo.ShowError("Поле заполнено некорректно");
                 return;
@@ -185,8 +177,8 @@ namespace CardGameClient
 
             App.NickName = charName;
 
-            Thread createCharacter = new Thread(CreateCharacter) { IsBackground = true };
-            createCharacter.Start();            
+            var createCharacter = new Thread(CreateCharacter) {IsBackground = true};
+            createCharacter.Start();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -195,20 +187,19 @@ namespace CardGameClient
             {
                 OnWindowShow();
 
-               /* this.Dispatcher.Invoke(new Action(() =>
-                    App.loginScreen.Hide()
-                ), DispatcherPriority.ContextIdle, null);*/
-
+                /* this.Dispatcher.Invoke(new Action(() =>
+                     App.loginScreen.Hide()
+                 ), DispatcherPriority.ContextIdle, null);*/
             }
             catch (Exception exc)
             {
-                this.Dispatcher.Invoke(new Action(delegate
+                Dispatcher.Invoke(new Action(delegate
                 {
                     MessageBox.Show(exc.Message, "Критическая ошибка!");
                     App.isConnected = false;
                     App.dumpException(exc);
                     Application.Current.Shutdown();
-                }));     
+                }));
             }
         }
 
@@ -217,7 +208,7 @@ namespace CardGameClient
         {
             new Action(delegate
             {
-                bool isError = false;
+                var isError = false;
 
                 App.ProxyMutex.WaitOne();
                 try
@@ -232,25 +223,21 @@ namespace CardGameClient
 
                 App.ProxyMutex.ReleaseMutex();
 
-                if (isError)
-                {
-                    App.OnConnectionError();
-                    return;
-                }
+                if (isError) App.OnConnectionError();
             }).Invoke();
 
             if (templates != null)
             {
                 CardPlace cp;
 
-                for (int i = 0; i < templates.Count; i++)
+                for (var i = 0; i < templates.Count; i++)
                 {
-                    Card item = templates[i];
+                    var item = templates[i];
                     cp = gridHeroes.Children[i] as CardPlace;
                     cp.ThisCard = item;
                     cp.IsEnabled = true;
 
-                    CardInfo ci = new CardInfo();
+                    var ci = new CardInfo();
                     ci.CardName.Content = item.card_name;
                     ci.Rarity.Content = App.rarityDictionary[item.cardRarity].RarityName;
                     ci.Rarity.Foreground = App.rarityDictionary[item.cardRarity].RarityColor;
@@ -259,7 +246,7 @@ namespace CardGameClient
                     ci.Hp.Content = "Здоровье: " + item.hp;
                     ci.Level.Content = "Уровень: " + item.min_level;
 
-                    cp.ToolTip = new ToolTip()
+                    cp.ToolTip = new ToolTip
                     {
                         Background = new SolidColorBrush(Color.FromArgb(230, 0, 0, 0)),
                         BorderThickness = new Thickness(0),
@@ -271,7 +258,7 @@ namespace CardGameClient
 
         private void CardPlace_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            CardPlace cp = sender as CardPlace;
+            var cp = sender as CardPlace;
             if (selectedCardPlace != null && selectedCardPlace != cp) selectedCardPlace.selected = false;
             CardIndex = cp.ThisCard.id;
             selectedCardPlace = cp;
@@ -279,7 +266,6 @@ namespace CardGameClient
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            
         }
 
         private void CharacterCreateWnd_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -292,7 +278,6 @@ namespace CardGameClient
                 CardIndex = -1;
                 errorText.Content = "Имя персонажа: Введите от 3 до 16 символов";
             }
-            
-        }       
+        }
     }
 }

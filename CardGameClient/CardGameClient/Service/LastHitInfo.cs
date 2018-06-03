@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace CardGameServer
 {
@@ -10,25 +6,25 @@ namespace CardGameServer
     public class LastHitInfo
     {
         /// <summary>
-        /// Слот карты
+        ///     Слот карты
         /// </summary>
         [DataMember]
         public int slot { get; set; }
 
         /// <summary>
-        /// Урон карты
+        ///     Урон карты
         /// </summary>
         [DataMember]
         public int dmg { get; set; }
 
         /// <summary>
-        /// Получен крит
+        ///     Получен крит
         /// </summary>
         [DataMember]
         public bool IsCritical { get; set; }
 
         /// <summary>
-        /// Промах
+        ///     Промах
         /// </summary>
         [DataMember]
         public bool isMissed { get; set; }

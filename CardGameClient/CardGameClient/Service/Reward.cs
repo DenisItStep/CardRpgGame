@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace CardGameServer
 {
@@ -10,25 +6,25 @@ namespace CardGameServer
     public class Reward
     {
         /// <summary>
-        /// Опыт
+        ///     Опыт
         /// </summary>
         [DataMember]
         public int Exp { get; set; }
 
         /// <summary>
-        /// Баллы
+        ///     Баллы
         /// </summary>
         [DataMember]
         public int Score { get; set; }
 
         /// <summary>
-        /// новый уровень
+        ///     новый уровень
         /// </summary>
         [DataMember]
         public bool NewLevel { get; set; }
 
         /// <summary>
-        /// Новая карта
+        ///     Новая карта
         /// </summary>
         [DataMember]
         public Card NewCard { get; set; }
